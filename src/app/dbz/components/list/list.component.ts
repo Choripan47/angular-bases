@@ -13,7 +13,7 @@ export class ListComponent {
 
 
   @Output()
-  public onDelete: EventEmitter<number> = new EventEmitter();
+  public onDelete: EventEmitter<string> = new EventEmitter();
 
   @Input()
   public characterList: Character[] = [
@@ -22,9 +22,8 @@ export class ListComponent {
     }
   ]
 
-  onDeleteCharacter(index: number):void{
-    console.log(index);
-    this.onDelete.emit(index);
+  onDeleteCharacter(id: string):void{
+    this.onDelete.emit(id);
     console.log("Emitiendo index de item seleccionado")
   }
 

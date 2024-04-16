@@ -1,3 +1,4 @@
+import { DbzService } from '../services/dbz.service';
 import { Character } from './../interfaces/character.interface';
 import { Component, numberAttribute } from '@angular/core';
 
@@ -8,35 +9,17 @@ import { Component, numberAttribute } from '@angular/core';
 
 export class MainPageComponent  {
 
-  public character: Character[] = [
-    {
-      name: "Goku",
-      power: 9000
-    },
-    {
-      name: "Krillin",
-      power: 1000
-    },
-    {
-      name: "Vegeta",
-      power: 5000
-    },
-    {
-      name: "cell",
-      power:6000
-    }
-  ];
+  constructor( private dbzService: DbzService ) {}
 
-  onNewCharacter(character: Character): void{
-    this.character.push( {name:character.name, power:character.power})
+  get character(): Character[]{
+    return[...this.dbzService.character]
   }
 
-
-  onDeleteCharacter(index: number): void{
-    console.log("Main Page");
-    console.log({ index });
-    console.log("Eliminando items de lista");
-    this.character.splice(index, 1)
+  onDeleteCharacter( id: string): void{
+    this.dbzService.deleteCharacterById( id );
   }
 
+  onNewCharacter( character: Character): void{
+    this.dbzService.addCharacter(character);
+  }
 }
